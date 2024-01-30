@@ -10,8 +10,7 @@ import orderRouter from './routes/order.js'
 config();
 connectToDB()
 const app=express();
-// app.use(cors({ origin: "http://localhost:6000" }));
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: 'https://shopcore.onrender.com' }));
 app.use(morgan("common"));
 app.use(express.json());
 app.use(express.static('images'));
