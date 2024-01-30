@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    table {
+      font-family: Arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table>
+    <thead>
+      <tr>
+        <th>קטגוריה</th>
+        <th>Method</th>
+        <th>כתובת</th>
+        <th>Body = (אופציונלי)</th>
+        <th>פרמטרים</th>
+        <th>ערך חזרה</th>
+        <th>פרמטרים אופציונליים</th>
+        <th>Crud operation</th>
+        <th>מה השרת מחזיר במקרי קיצון</th>
+        <th>תאור</th>
+        <th>headers</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>user</td>
+        <td>Get</td>
+        <td>/api/user</td>
+        <td></td>
+        <td></td>
+        <td>users[{_id,name,password,email,address{city,street,houseNumber},registrationDate,role}]</td>
+        <td></td>
+        <td>Read</td>
+        <td></td>
+        <td>Get all users - Admin only</td>
+        <td>token</td>
+      </tr>
+      <tr>
+        <td>user</td>
+        <td>Post</td>
+        <td>/api/user</td>
+        <td>{name,password,email,address{city,street,houseNumber}}</td>
+        <td></td>
+        <td>{_id,name,email,address:{city,street,houseNumbe },role,registrationDate,token}</td>
+        <td></td>
+        <td>Create</td>
+        <td> 400 - Invalid password or 409 - User already exists.</td>
+        <td>Add a new user and retrieve it.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>user</td>
+        <td>post</td>
+        <td>/api/user/login</td>
+        <td>{ password,email }</td>
+        <td></td>
+        <td>{_id,name,email,role,registrationDate,token}</td>
+        <td></td>
+        <td>Read</td>
+        <td> 400 - Missing parameter\ user does not exist\ error in body fields  or 401 - Incorrect password</td>
+        <td>User login and retrieve details</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>product</td>
+        <td>Get</td>
+        <td>/api/product</td>
+        <td></td>
+        <td></td>
+        <td>Products[{ category,Model,Manufacturer,Price, Description, Size,Color, warrantyConditions, imgUrl, introducer}]</td>
+        <td>productsInScreen, numOfScreen, textToSearch, minPrice, maxPrice</td>
+        <td>Read</td>
+        <td></td>
+        <td>Get all products - Registered user only.</td>
+        <td>token</td>
+      </tr>
+      <tr>
+        <td>product</td>
+        <td>get</td>
+        <td>/api/product/</td>
+        <td></td>
+        <td>id</td>
+        <td>{ category,Model,Manufacturer,Price, Description, Size,Color, warrantyConditions, imgUrl, introducer}</td>
+        <td></td>
+        <td>Read</td>
+        <td>400 - Invalid ID or 404 - No product.</td>
+        <td>Get a specific product - Registered user only.</td>
+        <td>token</td>
+      </tr>
+      <tr>
+        <td>product</td>
+        <td>post</td>
+        <td>/api/product</td>
+        <td>{ category, model, manufacturer, price, description, size, color, warrantyConditions,( imgUrl) }</td>
+        <td></td>
+        <td>{ category,Model,Manufacturer,Price, Description, Size,Color, warrantyConditions, imgUrl, introducer}</td>
+        <td></td>
+        <td>Create</td>
+        <td>409 - Product already exists or 400 - Error in body fields.</td>
+        <td>Add a new product and retrieve it - Admin only.</td>
+        <td>token</td>
+      </tr>
+      <tr>
+        <td>product</td>
+        <td>delete</td>
+        <td>/api/product</td>
+        <td></td>
+        <td>id</td>
+        <td>{ category,Model,Manufacturer,Price, Description, Size,Color, warrantyConditions, imgUrl, introducer}</td>
+        <td></td>
+        <td>Delete</td>
+        <td>400 - Invalid ID or 404 - Product not found or not the owner.</td>
+        <td>Delete a product and retrieve it - Product owner or Admin only.</td>
+        <td>token</td>
+      </tr>
+      <tr>
+        <td>product</td>
+        <td>put</td>
+        <td>/api/product</td>
+        <td>{ category, model, manufacturer, price, description, size, color, warrantyConditions, imgUrl }<br>כל השדות הם אופציונליים</td>
+        <td>id</td>
+        <td>{ category,Model,Manufacturer,Price, Description, Size,Color, warrantyConditions, imgUrl, introducer}</td>
+        <td></td>
+        <td>Update</td>
+        <td> 400 - Invalid ID or 404 - Product not found or not the owner.</td>
+        <td>Update a product and retrieve it - Product owner or Admin only.</td>
+        <td>token</td>
+      </tr>
+      <tr>
+        <td>order</td>
+        <td>Get</td>
+        <td>/api/order</td>
+        <td></td>
+        <td></td>
+        <td>orders[{ orderDate,dueDate,owner,address{city,street,houseNumber},products[{_id,model,price,description,quantity}],isSent}]</td>
+        <td></td>
+        <td>Read</td>
+        <td></td>
+        <td>Get all orders - Admin only.</td>
+        <td>token</td>
+      </tr>
+      <tr>
+        <td>order</td>
+        <td>Get</td>
+        <td>/api/order/myOrders</td>
+        <td></td>
+        <td></td>
+        <td>orders[{ orderDate,dueDate,owner,address{city,street,houseNumber},products[{_id,model,price,description,quantity}],isSent}]</td>
+        <td></td>
+        <td>Read</td>
+        <td></td>
+        <td>Get user-specific orders - Registered user only.</td>
+        <td>token</td>
+      </tr>
+      <tr>
+        <td>order</td>
+        <td>Post</td>
+        <td>/api/order</td>
+        <td>{ orderDate,dueDate,owner,address{city,street,houseNumber},products[{_id,model,price,description,quantity}],isSent}</td>
+        <td></td>
+        <td>{ orderDate,dueDate,owner,address{city,street,houseNumber},products[{_id,model,price,description,quantity}],isSent}</td>
+        <td></td>
+        <td>Create</td>
+        <td>400 - Error in body fields.</td>
+        <td>Create a new order and retrieve it - Registered user only.</td>
+        <td>token</td>
+      </tr>
+      <tr>
+        <td>order</td>
+        <td>Delete</td>
+        <td>/api/order</td>
+        <td></td>
+        <td>Id</td>
+        <td>{ orderDate,dueDate,owner,address{city,street,houseNumber},products[{_id,model,price,description,quantity}],isSent}</td>
+        <td></td>
+        <td>Delete</td>
+        <td>404 - No order\ invalid ID or 400 - Order already sent.</td>
+        <td>Delete an order and retrieve it - Admin or order owner only.</td>
+        <td>token</td>
+      </tr>
+      <tr>
+        <td>order</td>
+        <td>put</td>
+        <td>/api/order</td>
+        <td></td>
+        <td>id</td>
+        <td>sent successfully</td>
+        <td></td>
+        <td>Update</td>
+        <td>404 - No order\ invalid ID or 400 - Order already sent.</td>
+        <td>Sending an order - admin only</td>
+        <td>token</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+
+</html>
