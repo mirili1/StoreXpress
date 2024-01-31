@@ -9,7 +9,7 @@ const theProductDetails=mongoose.Schema({
   quantity:{type:Number,default:1}
 })
 const orderSchema = mongoose.Schema({
-    orderDate: { type: Date, default: Date.now },
+    orderDate: { type: Date, default: Date.now() },
     dueDate: { type: Date, required: true },
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
     address: { type: addressSchema, required: true },
@@ -20,7 +20,7 @@ export const Order=mongoose.model("orders",orderSchema) ;
 
 export const ordertValidator = (_orderToValidate) => {
     let orderJoi = joi.object({
-        orderDate: joi.date().default(Date.now),
+        orderDate: joi.date().default(Date.now()),
         dueDate: joi.date().required(),
         owner: joi.string().hex().length(24).required(),
         address: joi.object({
