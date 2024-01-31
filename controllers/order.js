@@ -74,7 +74,7 @@ export const sendingOrder=async(req,res)=>{
         if(!order)
             return res.status(404).send("there are no such an order")
         if(order.isSent)
-            return res.status(400).send("the order was sent already");
+            return res.status(200).send("the order was sent already");
         order.isSent=true;
         await order.save();
         res.status(200).send("sent successfully")    
