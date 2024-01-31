@@ -25,7 +25,7 @@ export const productValidator = (_productToValidate) => {
         size:joi.string().required(),
         color:joi.string().required(),
         warrantyConditions:joi.string().required(),
-        imgUrl: joi.string().default('https://shopcore.onrender.com/images/מצלמה.jpg').replace(/^/, 'https://shopcore.onrender.com/images/'),
+        imgUrl: joi.string().default('https://shopcore.onrender.com/מצלמה.jpg').replace(/^/, 'https://shopcore.onrender.com/'),
         introducer:joi.string().hex().length(24).required()
     })
     return productJoi.validate(_productToValidate)
