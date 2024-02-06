@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Order,ordertValidator } from '../models/order.js';
+import { Order,orderValidator } from '../models/order.js';
 export const getAllOrders=async(req,res)=>{
     try{
         let allOrders=await Order.find();
@@ -22,7 +22,7 @@ export const getOrdersOfUser=async(req,res)=>{
 export const addNewOrder=async(req,res)=>{
   try{
         let owner=req.user._id;
-        let validate=ordertValidator({...req.body,owner})
+        let validate=orderValidator({...req.body,owner})
         // if (validate.error) {
         //     validate.error.details.forEach((err) => {
         //         console.log(err.message);
