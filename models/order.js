@@ -18,7 +18,7 @@ const orderSchema = mongoose.Schema({
 });
 export const Order=mongoose.model("orders",orderSchema) ;
 
-export const ordertValidator = (_orderToValidate) => {
+export const orderValidator = (_orderToValidate) => {
     let orderJoi = joi.object({
         orderDate: joi.date().default(Date.now()),
         dueDate: joi.date().required(),
