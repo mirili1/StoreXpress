@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema(
     email: { type: String, required: true, unique: true },
     registrationDate:{ type: Date, default: Date.now()},
     role:{type:String,default:"USER"}
-    },
+    }
     // ,{ timestamps: true }
     )
 export const User = mongoose.model("users", userSchema);

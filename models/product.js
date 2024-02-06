@@ -10,7 +10,7 @@ const productSchema = mongoose.Schema(
         size:{ type: String, required: true },
         color:{ type: String, required: true },
         warrantyConditions:{ type: String, required: true },
-        imgUrl: { type: String, default: "http://localhost:6000/images/מצלמה.jpg" },
+        imgUrl: { type: String, default: "https://shopcore.onrender.com/מצלמה.jpg" },
         introducer:{type: mongoose.Schema.Types.ObjectId,required: true }
     })
 export const Product = mongoose.model("products", productSchema);
@@ -25,7 +25,7 @@ export const productValidator = (_productToValidate) => {
         size:joi.string().required(),
         color:joi.string().required(),
         warrantyConditions:joi.string().required(),
-        imgUrl: joi.string().default('http://localhost:6000/images/מצלמה.jpg').replace(/^/, 'http://localhost:6000/images/'),
+        imgUrl: joi.string().default('https://shopcore.onrender.com/מצלמה.jpg').replace(/^/, 'https://shopcore.onrender.com/'),
         introducer:joi.string().hex().length(24).required()
     })
     return productJoi.validate(_productToValidate)

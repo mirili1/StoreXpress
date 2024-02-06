@@ -205,10 +205,63 @@
         <td>sent successfully</td>
         <td></td>
         <td>Update</td>
-        <td>404 - No order\ invalid ID or 400 - Order already sent.</td>
-        <td>Sending an order - admin only</td>
+        <td>404 - No order, 400 - invalid ID or 200 - Order already sent.</td>
+        <td>Sending an order - admin only.</td>
         <td>token</td>
       </tr>
+      <tr>
+        <td>shopingCart</td>
+        <td>get</td>
+        <td>/api/shoppingCart</td>
+        <td></td>
+        <td></td>
+        <td>[{owner,product:{_id,model,price,imgUrl,quantity}}]</td>
+        <td></td>
+        <td>read</td>
+        <td></td>
+        <td>get all products in shopping cart - owner only.</td>
+        <td>token</td>
+      </tr>  
+       <tr>
+        <td>shopingCart</td>
+        <td>post</td>
+        <td>/api/shoppingCart</td>
+        <td>{product:{_id,model,price,imgUrl,quantity}}</td>
+        <td></td>
+        <td>{owner,product:{_id,model,price,imgUrl,quantity}}</td>
+        <td></td>
+        <td>Update</td>
+        <td>400 - error in params</td>
+        <td>insert product to shopping cart - owner only.</td>
+        <td>token</td>
+      </tr> 
+        <tr>
+        <td>shopingCart</td>
+        <td>delete</td>
+        <td>/api/shoppingCart</td>
+        <td></td>
+        <td>id</td>
+        <td>{owner,product:{_id,model,price,imgUrl,quantity}}</td>
+        <td></td>
+        <td>delete</td>
+        <td>400 - invalid ID or 404 - no item.</td>
+        <td>delete product from shopping cart - owner only.</td>
+        <td>token</td>
+      </tr>
+    </tr> 
+    <tr>
+    <td>shopingCart</td>
+    <td>put</td>
+    <td>/api/shoppingCart</td>
+    <td></td>
+    <td>id,count</td>
+    <td>count was changed</td>
+    <td></td>
+    <td>Update</td>
+    <td>400 - invalid ID or 404 - no item.</td>
+    <td>update count of product in shopping cart - owner only.</td>
+    <td>token</td>
+  </tr>
     </tbody>
   </table>
 

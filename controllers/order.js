@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Order,ordertValidator } from '../models/order.js';
+import { Order, orderValidator } from '../models/order.js';
 export const getAllOrders=async(req,res)=>{
     try{
         let allOrders=await Order.find();
@@ -22,7 +22,7 @@ export const getOrdersOfUser=async(req,res)=>{
 export const addNewOrder=async(req,res)=>{
   try{
         let owner=req.user._id;
-        let validate=ordertValidator({...req.body,owner})
+        let validate= orderValidator({...req.body,owner})
         // if (validate.error) {
         //     validate.error.details.forEach((err) => {
         //         console.log(err.message);
@@ -62,9 +62,7 @@ export const deleteOrder=async(req,res)=>{
   }
   catch(err){
     res.status(400).send("problem " + err.message);
-}
-}
-
+}}
 export const sendingOrder=async(req,res)=>{
     try{
         let {id}=req.params;
@@ -74,10 +72,10 @@ export const sendingOrder=async(req,res)=>{
         if(!order)
             return res.status(404).send("there are no such an order")
         if(order.isSent)
-            return res.status(400).send("the order was sent already");
+            return res.status(200).send("the order was sent already");
         order.isSent=true;
         await order.save();
-        res.status(200).send("sent successfully")    
+        res.status(200).send("sent successfully");    
   }
   catch(err){
     res.status(400).send("problem " + err.message);
