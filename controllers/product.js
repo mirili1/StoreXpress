@@ -3,7 +3,7 @@ import { Product, productValidator } from '../models/product.js';
 export const getcountOfProducts=async (req,res)=>{
     try{
         let sumProd = await Product.countDocuments();
-        res.status(200).send(sumProd);
+        res.status(200).send(String(sumProd));
     }
     catch(err){
         res.status(400).send("problem: " + err.message);
