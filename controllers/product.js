@@ -1,5 +1,14 @@
 import mongoose from 'mongoose';
 import { Product, productValidator } from '../models/product.js';
+export const getcountOfProducts=async (req,res)=>{
+    try{
+        let sumProd = await Product.countDocuments();
+        res.status(200).send(sumProd);
+    }
+    catch(err){
+        res.status(400).send("problem: " + err.message);
+    }
+}
 export const getAllProducts = async (req, res) => {
     try {
         let { productsInScreen, numOfScreen, textToSearch, minPrice, maxPrice } = req.query;
@@ -26,7 +35,7 @@ export const getAllProducts = async (req, res) => {
         let products = await Product.find(search).skip((numOfScreen - 1) * productsInScreen).limit(productsInScreen);
         res.json(products);
     } catch (err) {
-        res.status(400).send("Can't get products: " + err.message);
+        res.status(400).send("problem: " + err.message);
     }
 };
 export const getProductById = async (req, res) => {
