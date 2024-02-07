@@ -11,7 +11,7 @@ import shoppingCartRouter from './routes/ShoppingCart.js'
 config();
 connectToDB()
 const app=express();
-app.use(cors({ origin: 'https://shopcore.onrender.com' }));
+app.use(cors());
 app.use(morgan("common"));
 app.use(express.json());
 app.use(express.static('images'));
