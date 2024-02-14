@@ -51,11 +51,9 @@ export const updateItemInShoppingCart = async (req, res) => {
         let { count } = req.body;
         if (!mongoose.isValidObjectId(id))
             return res.status(400).send("id ins`t valid");
-        let item = await ShoppingCart.findOne({"product._id": id});
+        let item = await ShoppingCart.findOne({"product._id": id, "owner": req.user._id});
         if (!item)
             return res.status(404).send("there are no such an item");
-        if(req.user._id!=item.owner)
-            return res.status(403).send("you are not authorized");
         item.product.quantity = count;
         await item.save();
         res.status(200).send("count was changed")
