@@ -12,7 +12,9 @@ const productSchema = mongoose.Schema(
         warrantyConditions:{ type: String, required: true },
         imgUrl: { type: String, default: "https://shopcore.onrender.com/מצלמה.jpg" },
         introducer:{type: mongoose.Schema.Types.ObjectId,required: true }
-    })
+    }
+    ,{ timestamps: true }
+    )
 export const Product = mongoose.model("products", productSchema);
 
 export const productValidator = (_productToValidate) => {
