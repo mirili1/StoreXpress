@@ -45,7 +45,7 @@ export const deleteItemFromShoppingCart = async (req, res) => {
         res.status(400).send("problem " + err.message);
     }
 }
-export const updateItemInShoppingCart = async (req, res) => {
+export const updateAmountItemInShoppingCart = async (req, res) => {
     try {
         let { id } = req.params;
         let { count } = req.body;
@@ -57,6 +57,27 @@ export const updateItemInShoppingCart = async (req, res) => {
         item.product.quantity = count;
         await item.save();
         res.status(200).send("count was changed")
+    }
+    catch (err) {
+        res.status(400).send("problem " + err.message);
+    }
+}
+export const updateItemsInShoppingCart = async (req, res) => {
+    try {
+        let { id } = req.params;
+        let{model,price,imgUrl}=req.body
+        if (!mongoose.isValidObjectId(id))
+            return res.status(400).send("id ins`t valid");
+        let products = await ShoppingCart.find({"product._id": id});
+        if (products.length==0)
+            return res.status(200).send("there are no such an item in sopping cart");
+        for (let i = 0; i < products.length; i++) {
+            products[i].product.model = model || model;
+            products[i].product.price = price || price;
+            products[i].product.imgUrl = imgUrl || imgUrl;
+            await products[i].save();
+        }
+        res.status(200).send("update success")
     }
     catch (err) {
         res.status(400).send("problem " + err.message);
