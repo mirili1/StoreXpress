@@ -38,6 +38,20 @@ export const getAllProducts = async (req, res) => {
         res.status(400).send("problem: " + err.message);
     }
 };
+export const getProductsInCategoty = async (req, res) => {
+    try {
+        let { productsInScreen, numOfScreen } = req.params;
+        let {category}=req.params;
+        if (!productsInScreen)
+            productsInScreen = 30;
+        if (!numOfScreen)
+            numOfScreen = 1;
+        let products = await Product.find({category}).skip((numOfScreen - 1) * productsInScreen).limit(productsInScreen);
+        res.json(products);
+    } catch (err) {
+        res.status(400).send("problem: " + err.message);
+    }
+};
 export const getProductById = async (req, res) => {
     try {
         let { id } = req.params;
