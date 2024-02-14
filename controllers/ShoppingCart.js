@@ -48,7 +48,7 @@ export const deleteItemFromShoppingCart = async (req, res) => {
 export const updateItemInShoppingCart = async (req, res) => {
     try {
         let { id } = req.params;
-        let { count } = req.params;
+        let { count } = req.body;
         if (!mongoose.isValidObjectId(id))
             return res.status(400).send("id ins`t valid");
         let item = await ShoppingCart.findById(id);
