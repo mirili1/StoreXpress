@@ -32,7 +32,7 @@ export const getAllProducts = async (req, res) => {
                 search.price.$lte = parseFloat(maxPrice);
             }
         }
-        let products = await Product.find(search).skip((numOfScreen - 1) * productsInScreen).limit(productsInScreen);
+        let products = await Product.find(search).sort({ updatedAt: -1 }).skip((numOfScreen - 1) * productsInScreen).limit(productsInScreen);
         res.json(products);
     } catch (err) {
         res.status(400).send("problem: " + err.message);
@@ -46,7 +46,7 @@ export const getProductsInCategoty = async (req, res) => {
             productsInScreen = 30;
         if (!numOfScreen)
             numOfScreen = 1;
-        let products = await Product.find({category}).skip((numOfScreen - 1) * productsInScreen).limit(productsInScreen);
+        let products = await Product.find({category}).sort({ updatedAt: -1 }).skip((numOfScreen - 1) * productsInScreen).limit(productsInScreen);
         res.json(products);
     } catch (err) {
         res.status(400).send("problem: " + err.message);
