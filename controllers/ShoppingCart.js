@@ -51,7 +51,7 @@ export const updateItemInShoppingCart = async (req, res) => {
         let { count } = req.body;
         if (!mongoose.isValidObjectId(id))
             return res.status(400).send("id ins`t valid");
-        let item = await ShoppingCart.findById(id);
+        let item = await ShoppingCart.find({product:{_id:id}});
         if (!item)
             return res.status(404).send("there are no such an item");
         if(req.user._id!=item.owner)
