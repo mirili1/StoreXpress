@@ -9,6 +9,15 @@ export const getcountOfProducts=async (req,res)=>{
         res.status(400).send("problem: " + err.message);
     }
 }
+export const getcountOfProductsInCategory=async (req,res)=>{
+    try{  
+        let countProducts = await Product.countDocuments({ category });
+        res.status(200).send(String(countProducts));
+    }
+    catch(err){
+        res.status(400).send("problem: " + err.message);
+    }
+}
 export const getAllProducts = async (req, res) => {
     try {
         let { productsInScreen, numOfScreen, textToSearch, minPrice, maxPrice } = req.query;
