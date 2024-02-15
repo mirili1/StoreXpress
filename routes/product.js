@@ -10,4 +10,5 @@ router.get("/:id",productControllers.getProductById);
 router.post("/",auth.adminAuth,productControllers.addNewProduct);
 router.delete("/:id",auth.adminAuth,productControllers.deleteProductById);
 router.put("/:id",auth.adminAuth,productControllers.updateProductById);
+router.post("/uploadImage", auth.adminAuth, productControllers.uploadProductImage);
 export default router;

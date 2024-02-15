@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
 import { Product, productValidator } from '../models/product.js';
+import multer from 'multer';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
+
 export const getcountOfProducts=async (req,res)=>{
     try{
         let sumProd = await Product.countDocuments();
@@ -152,3 +156,34 @@ export const updateProductById = async (req, res) => {
         res.status(400).send("problem" + err.message);
     }
 }
+// Set storage engine for multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'images/'); // Path to save the uploaded images
+    },
+    filename: function (req, file, cb) {
+        // Rename the file with a unique identifier (UUID) and its original extension
+        cb(null, uuidv4() + path.extname(file.originalname));
+    }
+});
+
+// Initialize multer upload with the storage engine
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 1000000 } // Limit file size if needed
+}).single('image'); // 'image' should match the name attribute in your form input
+
+// Route to handle image upload
+export const uploadProductImage = (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            res.status(400).send("An error occurred while uploading the image.");
+        } else {
+            if (req.file) {
+                res.status(200).send("Image uploaded successfully: " + req.file.filename);
+            } else {
+                res.status(400).send("No image uploaded");
+            }
+        }
+    });
+};
