@@ -35,7 +35,7 @@ export const deleteItemFromShoppingCart = async (req, res) => {
         let { id } = req.params;
         if (!mongoose.isValidObjectId(id))
             return res.status(400).send("id ins`t valid");
-        let item = await ShoppingCart.findById({"product._id": id, "owner": req.user._id});
+        let item = await ShoppingCart.findOne({"product._id": id, "owner": req.user._id});
         if (!item)
             return res.status(404).send("there are no such an item")
         let deletedItem = await ShoppingCart.findByIdAndDelete(id);
