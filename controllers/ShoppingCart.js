@@ -35,7 +35,7 @@ export const deleteItemFromShoppingCart = async (req, res) => {
         let { id } = req.params;
         if (!mongoose.isValidObjectId(id))
             return res.status(400).send("id ins`t valid");
-        let item = await ShoppingCart.findById(id);
+        let item = await ShoppingCart.findById({"product._id": id, "owner": req.user._id});
         if (!item)
             return res.status(404).send("there are no such an item")
         let deletedItem = await ShoppingCart.findByIdAndDelete(id);
@@ -68,7 +68,7 @@ export const updateItemsInShoppingCart = async (req, res) => {
         let{model,price,imgUrl}=req.body
         if (!mongoose.isValidObjectId(id))
             return res.status(400).send("id ins`t valid");
-        let products = await ShoppingCart.find({"product._id": id});
+        let products = await ShoppingCart.find({"product._id": id, "owner": req.user._id});
         if (products.length==0)
             return res.status(200).send("there are no such an item in sopping cart");
         for (let i = 0; i < products.length; i++) {
