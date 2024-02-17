@@ -38,7 +38,7 @@ export const deleteItemFromShoppingCart = async (req, res) => {
         let item = await ShoppingCart.findOne({"product._id": id, "owner": req.user._id});
         if (!item)
             return res.status(404).send("there are no such an item")
-        let deletedItem = await ShoppingCart.findByIdAndDelete(id);
+        let deletedItem = await ShoppingCart.findByIdAndDelete(item._id);
         res.json(deletedItem)
     }
     catch (err) {
