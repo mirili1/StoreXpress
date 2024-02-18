@@ -53,13 +53,29 @@ export const getAllProducts = async (req, res) => {
 };
 export const getProductsInCategoty = async (req, res) => {
     try {
-        let { productsInScreen, numOfScreen } = req.params;
         let {category}=req.params;
+        let { productsInScreen, numOfScreen, textToSearch, minPrice, maxPrice } = req.query;
         if (!productsInScreen)
             productsInScreen = 30;
         if (!numOfScreen)
             numOfScreen = 1;
-        let products = await Product.find({category}).sort({ updatedAt: -1 }).skip((numOfScreen - 1) * productsInScreen).limit(productsInScreen);
+        let search = {category};
+        if (textToSearch) {
+            search = {
+                $or: [{ model: { $regex: `.*${textToSearch}.*`, $options: 'i' } },
+                { description: { $regex: `.*${textToSearch}.*`, $options: 'i' } }]
+            };
+        }
+        if (minPrice || maxPrice) {
+            search.price = {};
+            if (minPrice) {
+                search.price.$gte = parseFloat(minPrice);
+            }
+            if (maxPrice) {
+                search.price.$lte = parseFloat(maxPrice);
+            }
+        }
+        let products = await Product.find(search).sort({ updatedAt: -1 }).skip((numOfScreen - 1) * productsInScreen).limit(productsInScreen);
         res.json(products);
     } catch (err) {
         res.status(400).send("problem: " + err.message);
