@@ -51,7 +51,7 @@ export const getAllProducts = async (req, res) => {
         res.status(400).send("problem: " + err.message);
     }
 };
-export const getProductsInCategoty = async (req, res) => {
+export const getProductsInCategory = async (req, res) => {
     try {
         let {category}=req.params;
         let { productsInScreen, numOfScreen, textToSearch, minPrice, maxPrice } = req.query;
