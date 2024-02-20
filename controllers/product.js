@@ -15,7 +15,30 @@ export const getcountOfProducts=async (req,res)=>{
 }
 export const getcountOfProductsInCategory=async (req,res)=>{
     try{  
+        let {category}=req.params;
         let countProducts = await Product.countDocuments({ category });
+        res.status(200).send(String(countProducts));
+    }
+    catch(err){
+        res.status(400).send("problem: " + err.message);
+    }
+}
+export const getcountOfProductsInTwoCategories=async (req,res)=>{
+    try{  
+        let {category,secondCategory}=req.params;
+        let countProducts = await Product.countDocuments({ category,secondCategory});
+             
+        res.status(200).send(String(countProducts));
+    }
+    catch(err){
+        res.status(400).send("problem: " + err.message);
+    }
+}
+export const getcountOfProductsInCategoryAndManufacturer=async (req,res)=>{
+    try{  
+        let {category,manufacturer}=req.params;
+        let countProducts = await Product.countDocuments({ category,manufacturer});
+             
         res.status(200).send(String(countProducts));
     }
     catch(err){

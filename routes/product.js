@@ -8,6 +8,8 @@ router.get("/category/:category/:secondCategory",productControllers.getProductsI
 router.get("/category/:category/manufacturer/:manufacturer",productControllers.getProductsInCategoryByManufacturer);
 router.get("/count",productControllers.getcountOfProducts);
 router.get("/count/category/:category",productControllers.getcountOfProductsInCategory);
+router.get("/count/category/:category/secondCategory/:secondCategory",productControllers.getcountOfProductsInTwoCategories);
+router.get("/count/category/:category/manufacturer/:manufacturer",productControllers.getcountOfProductsInCategoryAndManufacturer);
 router.get("/:id",productControllers.getProductById);
 router.post("/",auth.adminAuth,productControllers.addNewProduct);
 router.delete("/:id",auth.adminAuth,productControllers.deleteProductById);
