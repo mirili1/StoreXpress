@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const productSchema = mongoose.Schema(
     {
         category:{ type: String, required: true },
+        secondaryCtegory:{ type: String, required: true },
         model:{ type: String, required: true },
         manufacturer:{ type: String, required: true },
         price:{ type: Number, required: true },
@@ -20,6 +21,7 @@ export const Product = mongoose.model("products", productSchema);
 export const productValidator = (_productToValidate) => {
     let productJoi = joi.object({
         category: joi.string().required(),
+        secondaryCtegory: joi.string().required(),
         model:joi.string().required(),
         manufacturer:joi.string().required(),
         price:joi.number().min(1).required(),

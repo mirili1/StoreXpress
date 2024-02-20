@@ -81,6 +81,36 @@ export const getProductsInCategory = async (req, res) => {
         res.status(400).send("problem: " + err.message);
     }
 };
+export const getProductsInSecondCategory = async (req, res) => {
+    try {
+        let {category,secondCategory}=req.params;
+        let { productsInScreen, numOfScreen, textToSearch, minPrice, maxPrice } = req.query;
+        if (!productsInScreen)
+            productsInScreen = 30;
+        if (!numOfScreen)
+            numOfScreen = 1;
+        let search = {category,secondCategory};
+        if (textToSearch) {
+            search = {
+                $or: [{ model: { $regex: `.*${textToSearch}.*`, $options: 'i' } },
+                { description: { $regex: `.*${textToSearch}.*`, $options: 'i' } }]
+            };
+        }
+        if (minPrice || maxPrice) {
+            search.price = {};
+            if (minPrice) {
+                search.price.$gte = parseFloat(minPrice);
+            }
+            if (maxPrice) {
+                search.price.$lte = parseFloat(maxPrice);
+            }
+        }
+        let products = await Product.find(search).sort({ updatedAt: -1 }).skip((numOfScreen - 1) * productsInScreen).limit(productsInScreen);
+        res.json(products);
+    } catch (err) {
+        res.status(400).send("problem: " + err.message);
+    }
+};
 export const getProductById = async (req, res) => {
     try {
         let { id } = req.params;
@@ -149,7 +179,7 @@ export const updateProductById = async (req, res) => {
         let { id } = req.params;
         if (!mongoose.isValidObjectId(id))
             return res.status(400).send("id ins`t valid");
-        let { category, model, manufacturer, price, description, size, color, warrantyConditions, imgUrl } = req.body;
+        let { category,secondaryCtegory, model, manufacturer, price, description, size, color, warrantyConditions, imgUrl } = req.body;
         let product = await Product.findById(id);
         if (!product)
             return res.status(404).send("no such product");
@@ -157,6 +187,7 @@ export const updateProductById = async (req, res) => {
         if (product.introducer != introducer)
             return res.status(403).send("You are not authorized");
         product.category = category || product.category;
+        product.secondaryCtegory = secondaryCtegory || product.secondaryCtegory;
         product.model = model || product.model;
         product.manufacturer = manufacturer || product.manufacturer;
         product.price = price || product.price;

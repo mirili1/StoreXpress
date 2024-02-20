@@ -4,6 +4,7 @@ import * as auth from '../controllers/auth.js';
 const router=express.Router();
 router.get("/",productControllers.getAllProducts);
 router.get("/category/:category",productControllers.getProductsInCategory);
+router.get("/category/:category/:secondCategory",productControllers.getProductsInSecondCategory);
 router.get("/count",productControllers.getcountOfProducts);
 router.get("/count/category/:category",productControllers.getcountOfProductsInCategory);
 router.get("/:id",productControllers.getProductById);
