@@ -84,3 +84,18 @@ export const updateItemsInShoppingCart = async (req, res) => {
         res.status(400).send("problem " + err.message);
     }
 }
+export const changeIsSelectedProduct = async (req, res) => {
+    try {
+        let { id } = req.params;
+        if (!mongoose.isValidObjectId(id))
+            return res.status(400).send("id ins`t valid");
+        let product = await ShoppingCart.findOne({ "product._id": id, "owner": req.user._id });
+        if (!product)
+             res.status(200).send("there are no such an item in sopping cart")
+        product.product.isSelected?product.product.isSelected=false:product.product.isSelected=true;
+        await product.save();
+    }
+    catch (err) {
+        res.status(400).send("problem " + err.message);
+    }
+}
