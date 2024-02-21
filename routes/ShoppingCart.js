@@ -7,4 +7,5 @@ router.post("/",auth.simpleAuth,shoppingCartControllers.addNewItemToShoppingCart
 router.delete("/:id",auth.simpleAuth,shoppingCartControllers.deleteItemFromShoppingCart);
 router.put("/:id",auth.simpleAuth,shoppingCartControllers.updateAmountItemInShoppingCart);
 router.put("/update/:id",auth.adminAuth,shoppingCartControllers.updateItemsInShoppingCart);
+router.put("/changeIsSelectedProduct/:id",auth.adminAuth,shoppingCartControllers.changeIsSelectedProduct);
 export default router;
