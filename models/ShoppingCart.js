@@ -10,7 +10,8 @@ const theProductDetails=mongoose.Schema({
 { timestamps: true })
 const shoppingCartSchema = mongoose.Schema({
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
-    product: { type: theProductDetails, required: true }
+    product: { type: theProductDetails, required: true },
+    isSelected: {type:Boolean,default:true}
 });
 export const ShoppingCart=mongoose.model("shopping cart",shoppingCartSchema) ;
 
@@ -25,6 +26,7 @@ export const shoppingCartValidator = (_itemToValidate) => {
                 quantity: joi.number().default(1)
             }
         ).required(),
+        isSelected:joi.boolean().default(true),
     });         
     return shoppingCartJoi.validate(_itemToValidate);
 };
