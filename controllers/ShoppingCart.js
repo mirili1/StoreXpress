@@ -92,7 +92,7 @@ export const changeIsSelectedProduct = async (req, res) => {
         let product = await ShoppingCart.findOne({ "product._id": id, "owner": req.user._id });
         if (!product)
              res.status(200).send("there are no such an item in sopping cart")
-        product.product.isSelected?product.product.isSelected=false:product.product.isSelected=true;
+        product.isSelected?product.isSelected=false:product.isSelected=true;
         await product.save();
     }
     catch (err) {
