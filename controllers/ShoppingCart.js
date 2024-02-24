@@ -12,7 +12,7 @@ export const getAllShoppingCart = async (req, res) => {
 }
 export const addNewItemToShoppingCart = async (req, res) => {
     try {
-         let { _id, model, price, imgUrl} = req.body.product;
+        let { _id, model, price, imgUrl} = req.body;
         let owner = req.user._id;
         let validate = shoppingCartValidator({ product: { _id, model, price, imgUrl }, owner })
         if (validate.error) {
