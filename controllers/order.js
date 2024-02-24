@@ -22,7 +22,9 @@ export const getOrdersOfUser=async(req,res)=>{
 export const addNewOrder=async(req,res)=>{
   try{
         let owner=req.user._id;
-        let validate= orderValidator({...req.body,owner})
+        let{ dueDate,address,products}=req.body;
+        let{ city,street,houseNumber}=address;
+        let validate= orderValidator({dueDate,address:{city,street,houseNumber},products,owner});
         // if (validate.error) {
         //     validate.error.details.forEach((err) => {
         //         console.log(err.message);
