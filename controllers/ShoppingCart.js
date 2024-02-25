@@ -89,7 +89,7 @@ export const changeIsSelectedProduct = async (req, res) => {
         let { id } = req.params;
         if (!mongoose.isValidObjectId(id))
             return res.status(400).send("id ins`t valid");
-        let product = await ShoppingCart.findOne({ "product._id": id, "owner": req.user._id });
+        let product = await ShoppingCart.findOne({ "product._id": id });
         if (!product)
                  res.status(200).send("there are no such an item in sopping cart");
         product.isSelected?product.isSelected=false:product.isSelected=true;
