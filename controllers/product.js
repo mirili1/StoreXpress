@@ -246,7 +246,6 @@ export const updateProductById = async (req, res) => {
         product.price = price || product.price;
         product.description = description || product.description;
         product.size = size || product.size;
-        product.color = color || product.color;
         product.warrantyConditions = warrantyConditions || product.warrantyConditions;
         product.imgUrl = imgUrl || product.imgUrl;
         await product.save();
